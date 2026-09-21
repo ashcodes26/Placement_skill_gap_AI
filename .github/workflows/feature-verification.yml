@@ -1,0 +1,20 @@
+name: Feature Verification
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify required project structure
+        run: |
+          test -f frontend/package.json
+          test -f frontend/app/_layout.tsx
+          test -f backend/app/main.py
+          test -f backend/requirements.txt
+          test -f docs/DEFINITION_OF_DONE.md
+      - name: Report
+        run: echo "Required project structure verified."
